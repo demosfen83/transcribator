@@ -1,0 +1,48 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local transcription artifacts and uploaded media
+output/
+tests_tmp/
+tmp*/
+*.mp3
+*.mp4
+*.m4a
+*.wav
+*.aac
+*.flac
+*.ogg
+*.mov
+*.mkv
+*.avi
+*.webm
+*.srt
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

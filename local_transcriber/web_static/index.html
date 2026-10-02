@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local Transcriber</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-labelledby="page-title">
+        <div class="intro">
+          <p class="kicker">Локальная транскрибация</p>
+          <h1 id="page-title">Local Transcriber</h1>
+          <p class="summary">Выберите аудио или видео, задайте параметры и получите Markdown, JSON и SRT в локальной папке output.</p>
+        </div>
+
+        <form id="transcription-form" class="panel">
+          <fieldset>
+            <legend>Файл</legend>
+            <label class="field">
+              <span>Выбрать файл</span>
+              <input type="file" name="file" accept="audio/*,video/*">
+            </label>
+            <label class="field">
+              <span>Или путь к файлу</span>
+              <input type="text" name="input_path" placeholder="E:\Videos\meeting.mp4">
+            </label>
+            <label class="field">
+              <span>Папка результата</span>
+              <input type="text" name="output_root" value="./output">
+            </label>
+          </fieldset>
+
+          <fieldset class="grid">
+            <legend>Распознавание</legend>
+            <label class="field">
+              <span>Язык</span>
+              <input type="text" name="language" value="ru">
+            </label>
+            <label class="field">
+              <span>Модель</span>
+              <input type="text" name="model" value="large-v3-turbo">
+            </label>
+            <label class="field">
+              <span>Устройство</span>
+              <select name="device">
+                <option value="auto" selected>Auto</option>
+                <option value="cpu">CPU</option>
+                <option value="cuda">CUDA</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Compute type</span>
+              <input type="text" name="compute_type" value="auto">
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Опции</legend>
+            <label class="checkbox">
+              <input type="checkbox" name="offline">
+              <span>Offline-режим, использовать только локально доступную модель</span>
+            </label>
+            <label class="field">
+              <span>Initial prompt</span>
+              <textarea name="initial_prompt" rows="3" placeholder="Необязательная подсказка для Whisper"></textarea>
+            </label>
+            <div class="formats" aria-label="Форматы результата">
+              <label><input type="checkbox" name="formats" value="md" checked> Markdown</label>
+              <label><input type="checkbox" name="formats" value="json" checked> JSON</label>
+              <label><input type="checkbox" name="formats" value="srt" checked> SRT</label>
+            </div>
+          </fieldset>
+
+          <button class="primary" type="submit">Транскрибировать</button>
+        </form>
+      </section>
+
+      <aside class="status-panel" aria-labelledby="status-title">
+        <h2 id="status-title">Статус</h2>
+        <div id="status-badge" class="status-badge">Ожидает запуска</div>
+        <div class="progress" aria-label="Прогресс транскрибации">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <p id="progress-text" class="muted">Выберите файл и запустите транскрибацию.</p>
+        <div id="latest-segment" class="latest" hidden></div>
+        <div id="error-box" class="error" hidden></div>
+        <div id="result-box" class="results" hidden>
+          <h3>Готовые файлы</h3>
+          <ul id="result-list"></ul>
+        </div>
+      </aside>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
